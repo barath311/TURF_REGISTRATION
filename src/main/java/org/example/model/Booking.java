@@ -1,6 +1,8 @@
 package org.example.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Booking {
@@ -13,24 +15,41 @@ public class Booking {
     private Turf turf;
 
     @ManyToOne
-    private User user;
+    private AppUser user;
 
-    public Booking() {
-    }
+    private LocalDate date;
 
-    public Booking(Long id, User user, Turf turf) {
+    private LocalTime startTime;
+
+    private LocalTime endTime;
+
+    public Booking() {}
+
+    public Booking(Long id, AppUser user, Turf turf, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.id = id;
         this.user = user;
         this.turf = turf;
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
+    // Getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Turf getTurf() { return turf; }
     public void setTurf(Turf turf) { this.turf = turf; }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public AppUser getUser() { return user; }
+    public void setUser(AppUser user) { this.user = user; }
 
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public LocalTime getStartTime() { return startTime; }
+    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+
+    public LocalTime getEndTime() { return endTime; }
+    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
 }

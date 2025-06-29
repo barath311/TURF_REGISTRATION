@@ -1,8 +1,11 @@
 package org.example.service;
 
-import org.example.model.User;
-import org.example.repository.UserRepository;
+import org.example.model.AppUser;
+
+import org.example.repository.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,14 +15,14 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
-    UserRepository repo;
-    public String addUser(User users) {
+    AppUserRepo repo;
+    public String addUser(AppUser users) {
         repo.save(users);
         return "User details Registered Success";
     }
 
-    public List<User> getUser() {
-        List<User> users = repo.findAll();
+    public List<AppUser> getUser() {
+        List<AppUser> users = repo.findAll();
         if (users.isEmpty()) {
             return new ArrayList<>();  // Return an empty list if no data is found
         }
@@ -27,6 +30,27 @@ public class UserService {
     }
 
 
+    public String update(AppUser users) {
+        repo.save(users);
+        return "Updated Successfully";
 
 }
+
+    public Optional<String> deleteUser(Long id) {
+        try {
+            if (repo.existsById(id)) {
+                repo.deleteById(id);
+                return Optional.of("Delete Success");
+            } else {
+                return Optional.of("No data Exists");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  // Check the exact error in the console
+            return Optional.of("Error: " + e.getMessage());
+        }
+    }
+
+
+    }
+
 
